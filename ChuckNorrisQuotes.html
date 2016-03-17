@@ -1,0 +1,58 @@
+<html>
+
+<head>
+<title> Random Quote Generator </title>
+<!-- Include Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+</script>
+<script >
+$(document).ready(function() {
+  console.log('Ready');
+
+  $("#getMessage").on("click", function() {
+    $.getJSON("http://api.icndb.com/jokes/random", function(json) {
+      $("#chuckQuotes").html(json.value.joke);
+    });
+  });
+
+  $("#sendTweet").on("click", function(json) {
+    var phrase = document.getElementById('chuckQuotes').innerText;
+    var tweetUrl = 'https://twitter.com/share?text=' +
+      encodeURIComponent(phrase);
+
+    window.open(tweetUrl);
+
+  });
+
+  $.getJSON("http://api.icndb.com/jokes/random", function(json) {
+
+    console.log("Inside First JSON" + JSON.stringify(json));
+    $("#chuckQuotes").html(json.value.joke);
+
+  });
+
+});
+</script>
+
+</head>
+
+
+<body>
+
+  <div class="container-fluid">
+    <div class="well text-center">
+      <h4> Chuck Norris Random Quote Generator </h4> <br>
+      <img src="http://www.writecamp.org/writecamp//files/copy_images/Vd3MJo.jpg" class="img-responsive center-block" />
+      <button id="getMessage" class="btn btn-primary">Get Quote </button>
+       <button id="sendTweet" class="btn btn-primary"><i class="fa fa-twitter"> Twitter</i></button>
+      <p></p>
+      <div id="chuckQuotes">
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
